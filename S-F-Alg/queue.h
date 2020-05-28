@@ -28,9 +28,7 @@ public:
 	~queue_el() {
 		next = nullptr;
 	}
-	/*
-	 * funcs allow you set new value to queue_el object properties
-	 */
+	
 	void set_next(queue_el* const next_el) {
 		next = next_el;
 	};
@@ -38,9 +36,7 @@ public:
 		data = new_data;
 	};
 
-	/*
-	 * funcs allow you get value of queue_el object properties
-	 */
+	
 	queue_el* get_next() {
 		return next;
 	};
@@ -48,9 +44,6 @@ public:
 		return data;
 	};
 
-	/*
-	 * funcs set next/prev properties value to 'nullptr'
-	 */
 	void clr_next() {
 		delete this;
 		next = nullptr;
