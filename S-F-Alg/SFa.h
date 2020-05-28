@@ -9,14 +9,13 @@ using namespace std;
 class shannonfano {
 private:
 
-	// data structure that represents a node in the tree
 	struct Node {
 		char symb; 
 		int value; 
 		Node* parent; 
 		Node* left; 
 		Node* right; 
-		bool isRed; // true -> Red, false -> Black
+		bool isRed; 
 		queue code;
 	};
 	typedef Node* NodePtr;
@@ -24,8 +23,6 @@ private:
 	NodePtr NIL;
 	List sorted;
 
-	// initializes the nodes with appropirate values
-	// all the pointers are set to point to the null pointer
 	void initializeNULLNode(NodePtr node, NodePtr parent) {
 		node->symb = 0;
 		node->value = 0;
@@ -177,7 +174,6 @@ private:
 	}
 
 	void deleteNodeHelper(NodePtr node, char key) {
-		// find the node containing key
 		NodePtr cur = NIL;
 		NodePtr instead_scnd, instead_first;
 		bool found = false;
@@ -311,7 +307,6 @@ private:
 			printHelper(root->left, indent, false);
 			printHelper(root->right, indent, true);
 		}
-		// cout<<root->left->data<<endl;
 	}
 
 public:
@@ -323,26 +318,18 @@ public:
 		root = NIL;
 	}
 
-	// Pre-Order traversal
-	// Node->Left Subtree->Right Subtree
 	void preorder() {
 		preOrderHelper(this->root);
 	}
 
-	// In-Order traversal
-	// Left Subtree -> Node -> Right Subtree
 	void inorder(bool keys, bool values) {
 		inOrderHelper(this->root, keys, values);
 	}
 
-	// Post-Order traversal
-	// Left Subtree -> Right Subtree -> Node
 	void postorder() {
 		postOrderHelper(this->root);
 	}
 
-	// search the tree for the key k
-	// and return the corresponding node
 	NodePtr find(char k) {
 		return searchTreeHelper(this->root, k);
 	}
@@ -365,15 +352,10 @@ public:
 
 	// find the successor of a given node
 	NodePtr successor(NodePtr x) {
-		// if the right subtree is not null,
-		// the successor is the leftmost node in the
-		// right subtree
 		if (x->right != NIL) {
 			return minimum(x->right);
 		}
 
-		// else it is the lowest ancestor of x whose
-		// left child is also an ancestor of x.
 		NodePtr y = x->parent;
 		while (y != NIL && x == y->right) {
 			x = y;
@@ -384,9 +366,6 @@ public:
 
 	// find the predecessor of a given node
 	NodePtr predecessor(NodePtr x) {
-		// if the left subtree is not null,
-		// the predecessor is the rightmost node in the 
-		// left subtree
 		if (x->left != NIL) {
 			return maximum(x->left);
 		}
@@ -400,7 +379,6 @@ public:
 		return y;
 	}
 
-	// rotate left at node x
 	void leftRotate(NodePtr x) {
 		NodePtr y = x->right;
 		x->right = y->left;
@@ -421,7 +399,6 @@ public:
 		x->parent = y;
 	}
 
-	// rotate right at node x
 	void rightRotate(NodePtr x) {
 		NodePtr y = x->left;
 		x->left = y->right;
@@ -445,14 +422,13 @@ public:
 	// insert the key to the tree in its appropriate position
 	// and fix the tree
 	void insert(char key) {
-		// Ordinary Binary Search Insertion
 		NodePtr node = new Node;
 		node->parent = nullptr;
 		node->symb = key;
 		node->value = 1;
 		node->left = NIL;
 		node->right = NIL;
-		node->isRed = true; // new node must be red
+		node->isRed = true;
 
 		NodePtr items_parent = nullptr;
 		NodePtr item = this->root;
@@ -502,12 +478,10 @@ public:
 		return this->root;
 	}
 
-	// delete the node from the tree
 	void remove(char data) {
 		deleteNodeHelper(this->root, data);
 	}
 
-	// print the tree structure on the screen
 	void Print() {
 		if (root != NIL) {
 			printHelper(this->root, "", true);
@@ -558,7 +532,6 @@ public:
 
 	}
 
-	//show codes
 	void show_codes() {
 		inorder(true, false);
 	}
@@ -595,7 +568,6 @@ public:
 
 	}
 
-	//to show as a table of frequency
 	void show_as_list() {
 		sorted.print_to_console();
 	}
